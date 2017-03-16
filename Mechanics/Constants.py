@@ -37,16 +37,8 @@ DOWNRIGHT = 'DOWNRIGHT'
 
 CONSOLE = 'CONSOLE'
 DISPLAY = 'DISPLAY'
-SPECIAL = 'SPECIAL'
+PLAYER = 'PLAYER'
 
 screenSize = 800, 600
-display = pygame.display.set_mode((800, 600), RESIZABLE)
 
-def displayIsSet( ):
-	if pygame.display.get_init():
-		return True
-	else:
-		return False
 
-def init():
-	pygame.display.set_mode((800, 600), RESIZABLE)
