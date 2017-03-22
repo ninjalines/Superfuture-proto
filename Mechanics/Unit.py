@@ -3,23 +3,6 @@
 from Constants import *
 import pygame
 
-class Movement(Length):
-	def __init__(self, up, down, left, right, speed ):
-		super(Movement, self).__init__(self, up, down, left, right, speed)
-		self.DIRECTIONAL = {UP:0, DOWN:0, LEFT:0, RIGHT:0, UPRIGHT:[0, 0], UPLEFT:[0, 0], DOWNRIGHT:[0, 0], DOWNLEFT:[0, 0]}
-		self.DIRECTIONAL[UP] = up
-		self.DIRECTIONAL[DOWN] = down
-		self.DIRECTIONAL[LEFT] = left
-		self.DIRECTIONAL[RIGHT] = right
-		self.DIRECTIONAL[UPRIGHT][0] = self.DIRECTIONAL[UP]
-		self.DIRECTIONAL[UPRIGHT][1] = self.DIRECTIONAL[RIGHT]
-		self.DIRECTIONAL[UPLEFT][0] = self.DIRECTIONAL[UP]
-		self.DIRECTIONAL[UPLEFT][1] = self.DIRECTIONAL[LEFT]
-		self.DIRECTIONAL[DOWNRIGHT][0] = self.DIRECTIONAL[DOWN]
-		self.DIRECTIONAL[DOWNRIGHT][1] = self.DIRECTIONAL[RIGHT]
-		self.DIRECTIONAL[DOWNLEFT][0] = self.DIRECTIONAL[DOWN]
-		self.DIRECTIONAL[DOWNLEFT][1] = self.DIRECTIONAL[LEFT]
-
 class Length(object):
 	def __init__(self, up, down, left, right, speed):
 		self.up = up
@@ -48,19 +31,37 @@ class Length(object):
 			#self.down = modifyObjectmodifyingValueDown + self.down
 			#self.
 		pass
+
+class Movement(Length):
+	def __init__(self, up, down, left, right, speed ):
+		super(Movement, self).__init__(self, up, down, left, right, speed)
+		self.DIRECTIONAL = {UP:0, DOWN:0, LEFT:0, RIGHT:0, UPRIGHT:[0, 0], UPLEFT:[0, 0], DOWNRIGHT:[0, 0], DOWNLEFT:[0, 0]}
+		self.DIRECTIONAL[UP] = up
+		self.DIRECTIONAL[DOWN] = down
+		self.DIRECTIONAL[LEFT] = left
+		self.DIRECTIONAL[RIGHT] = right
+		self.DIRECTIONAL[UPRIGHT][0] = self.DIRECTIONAL[UP]
+		self.DIRECTIONAL[UPRIGHT][1] = self.DIRECTIONAL[RIGHT]
+		self.DIRECTIONAL[UPLEFT][0] = self.DIRECTIONAL[UP]
+		self.DIRECTIONAL[UPLEFT][1] = self.DIRECTIONAL[LEFT]
+		self.DIRECTIONAL[DOWNRIGHT][0] = self.DIRECTIONAL[DOWN]
+		self.DIRECTIONAL[DOWNRIGHT][1] = self.DIRECTIONAL[RIGHT]
+		self.DIRECTIONAL[DOWNLEFT][0] = self.DIRECTIONAL[DOWN]
+		self.DIRECTIONAL[DOWNLEFT][1] = self.DIRECTIONAL[LEFT]
+
  
 
 class Unit(object):
 	"""The base unit for objects that move, stand still and have functionality for these 'units'."""
 	identificationNumber = 0
-	identification = 'PLAYER'
 	def __init__(self, size, position ):
-		self.identification = Unit.identification
-		Unit.identification += 1
+		self.identification = PLAYER
+		self.identificationNumber = Unit.identificationNumber
+		Unit.identificationNumber += 1
 		self.size = size
 		self.position = position
 		self.image = pygame.Surface(self.size)
-		self.rect = self.surface.get_rect()
+		self.rect = self.image.get_rect()
 	
 	def returnIdentificationNumber(self, ):
 		identificationNumber = Unit.identificationNumber
@@ -74,7 +75,7 @@ class Unit(object):
 
 		
 	def movement(self, direction):
-		if direction in DIRECTIONS:
+		pass
 			
 			
 
@@ -83,12 +84,11 @@ class Unit(object):
 class BlackBox(Unit):
 	def __init__(self, size, position):
 		super(BlackBox, self).__init__(size, position)
-		self.surface.fill(BLACK)
-		self.image = self.surface
+		self.image.fill(BLACK)
 		self.position = position
 		self.identification = self.returnIdentification()
 	def returnIdentification(self, ):
-		identification = BlackBox.PLAYER
+		identification = PLAYER
 		return identification
 
 
@@ -97,14 +97,18 @@ class BlackBox(Unit):
 
 class Management(object):
 	ManagementGroup = []
-	ManagementIdentification = 0
+	identificationNumber = 0
+	identification = MANAGEMENT
 	def __init__(self, ):
 		Management.ManagementGroup.append(self)
 
 	def returnIdentification(self, ):
 		identification = Management.ManagementIdentification
 		Management.ManagementIdentification += 1
-		return identification					
+		return identification
+
+	def doesManagementExist(self, ):
+		pass					
 
 class UnitManagement(Management):
 	UnitManagementGroup = []
